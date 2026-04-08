@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "winepredictor"
+version = "0.1.0"
+description = "A Python package with utility functions for wine quality prediction — data preparation, KNN model tuning, and visualization."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+authors = [
+    { name = "Arnav Gupta" },
+    { name = "Ashley Chan" },
+    { name = "Jacob Andersen-Lum" },
+    { name = "Nathan Shack" },
+]
+dependencies = [
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
