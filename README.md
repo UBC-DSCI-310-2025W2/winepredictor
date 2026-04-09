@@ -60,6 +60,14 @@ pip install ".[dev]"
 pytest tests/ -v
 ```
 
+The tests cover the following:
+
+- **`test_extract_features_and_target.py`** — Validates that `extract_features_and_target` correctly splits a DataFrame into features and target, handles missing target columns, and rejects invalid inputs including empty DataFrames and non-string column names.
+- **`test_run_knn_grid_search.py`** — Checks that `run_knn_grid_search` returns the expected output structure (`best_k`, `best_cv_score`, `cv_results`), handles default and custom `k_values`, and raises errors on malformed input.
+- **`test_plot_correlation_heatmap.py`** — Confirms that the heatmap PNG is saved to the specified path and that the function raises errors for invalid inputs or unwritable paths.
+- **`test_plot_quality_distribution.py`** — Confirms that the distribution bar chart PNG is saved correctly and that missing or invalid column names are handled appropriately.
+
+
 ## License
 
 This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
