@@ -81,83 +81,81 @@ def test_creates_parent_directories(numeric_df, tmp_path):
     plot_correlation_heatmap(numeric_df, output)
     assert os.path.exists(output)
 
-
-class TestPlotQualityDistribution:
     """Tests for plot_quality_distribution."""
 
-    def test_output_file_is_created(self, tmp_path):
-        """
-        Test that calling plot_quality_distribution creates a PNG file at the
-        specified output path. Verifies basic file creation behaviour and that
-        the output is a real file rather than a directory.
-        """
-        df = pd.DataFrame({"quality": [3, 4, 4, 5, 6, 6, 7]})
-        output_file = tmp_path / "quality_distribution.png"
+def test_output_file_is_created(tmp_path):
+    """
+    Test that calling plot_quality_distribution creates a PNG file at the
+    specified output path. Verifies basic file creation behaviour and that
+    the output is a real file rather than a directory.
+    """
+    df = pd.DataFrame({"quality": [3, 4, 4, 5, 6, 6, 7]})
+    output_file = tmp_path / "quality_distribution.png"
 
-        plot_quality_distribution(df, "quality", output_file)
+    plot_quality_distribution(df, "quality", output_file)
 
-        assert output_file.exists()
-        assert output_file.is_file()
+    assert output_file.exists()
+    assert output_file.is_file()
 
-    def test_output_file_is_valid_png(self, tmp_path):
-        """
-        Test that the saved output file is a valid PNG by checking its full
-        8-byte magic header and confirming the file size is greater than zero.
-        Ensures the file is not empty or corrupted.
-        """
-        df = pd.DataFrame({"quality": [3, 4, 5, 5, 6]})
-        output_file = tmp_path / "quality_distribution.png"
+def test_output_file_is_valid_png(tmp_path):
+    """
+    Test that the saved output file is a valid PNG by checking its full
+    8-byte magic header and confirming the file size is greater than zero.
+    Ensures the file is not empty or corrupted.
+    """
+    df = pd.DataFrame({"quality": [3, 4, 5, 5, 6]})
+    output_file = tmp_path / "quality_distribution.png"
 
-        plot_quality_distribution(df, "quality", output_file)
+    plot_quality_distribution(df, "quality", output_file)
 
-        assert output_file.stat().st_size > 0
-        with open(output_file, "rb") as f:
-            magic_bytes = f.read(8)
+    assert output_file.stat().st_size > 0
+    with open(output_file, "rb") as f:
+        magic_bytes = f.read(8)
 
-        assert magic_bytes == b"\x89PNG\r\n\x1a\n"
+    assert magic_bytes == b"\x89PNG\r\n\x1a\n"
 
-    def test_raises_keyerror_if_column_missing(self, tmp_path):
-        """
-        Test that a KeyError is raised when the specified column does not exist
-        in the DataFrame. Ensures the function fails explicitly rather than
-        silently producing an empty or incorrect plot.
-        """
-        df = pd.DataFrame({"quality": [3, 4, 5]})
-        output_file = tmp_path / "quality_distribution.png"
+def test_raises_keyerror_if_column_missing(tmp_path):
+    """
+    Test that a KeyError is raised when the specified column does not exist
+    in the DataFrame. Ensures the function fails explicitly rather than
+    silently producing an empty or incorrect plot.
+    """
+    df = pd.DataFrame({"quality": [3, 4, 5]})
+    output_file = tmp_path / "quality_distribution.png"
 
-        with pytest.raises(KeyError):
-            plot_quality_distribution(df, "missing_column", output_file)
+    with pytest.raises(KeyError):
+        plot_quality_distribution(df, "missing_column", output_file)
 
-    def test_works_with_different_column_names_and_dataframe_sizes(self, tmp_path):
-        """
-        Test that the function works correctly with different column names and
-        varying DataFrame sizes. Verifies the function is not hardcoded to a
-        specific column name or dataset size.
-        """
-        small_df = pd.DataFrame({"rating": [1, 2, 2, 3]})
-        large_df = pd.DataFrame({"score": list(range(100))})
+def test_works_with_different_column_names_and_dataframe_sizes(tmp_path):
+    """
+    Test that the function works correctly with different column names and
+    varying DataFrame sizes. Verifies the function is not hardcoded to a
+    specific column name or dataset size.
+    """
+    small_df = pd.DataFrame({"rating": [1, 2, 2, 3]})
+    large_df = pd.DataFrame({"score": list(range(100))})
 
-        small_output = tmp_path / "small_plot.png"
-        large_output = tmp_path / "large_plot.png"
+    small_output = tmp_path / "small_plot.png"
+    large_output = tmp_path / "large_plot.png"
 
-        plot_quality_distribution(small_df, "rating", small_output)
-        plot_quality_distribution(large_df, "score", large_output)
+    plot_quality_distribution(small_df, "rating", small_output)
+    plot_quality_distribution(large_df, "score", large_output)
 
-        assert small_output.exists()
-        assert large_output.exists()
-        assert small_output.stat().st_size > 0
-        assert large_output.stat().st_size > 0
+    assert small_output.exists()
+    assert large_output.exists()
+    assert small_output.stat().st_size > 0
+    assert large_output.stat().st_size > 0
 
-    def test_creates_parent_directories_if_they_do_not_exist(self, tmp_path):
-        """
-        Test that the function automatically creates any missing parent directories
-        in the output path. This allows users to specify nested output paths
-        without manually creating the directory structure first.
-        """
-        df = pd.DataFrame({"quality": [3, 4, 5, 5, 6]})
-        output_file = tmp_path / "nested" / "plots" / "quality_distribution.png"
+def test_creates_parent_directories_if_they_do_not_exist(tmp_path):
+    """
+    Test that the function automatically creates any missing parent directories
+    in the output path. This allows users to specify nested output paths
+    without manually creating the directory structure first.
+    """
+    df = pd.DataFrame({"quality": [3, 4, 5, 5, 6]})
+    output_file = tmp_path / "nested" / "plots" / "quality_distribution.png"
 
-        plot_quality_distribution(df, "quality", output_file)
+    plot_quality_distribution(df, "quality", output_file)
 
-        assert output_file.exists()
-        assert output_file.parent.exists()
+    assert output_file.exists()
+    assert output_file.parent.exists()
