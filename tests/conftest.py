@@ -1,6 +1,7 @@
 import pytest
 import pandas as pd
 
+
 @pytest.fixture
 def sample_wine_data():
     """Returns a small sample of the wine quality dataset for testing."""
