@@ -3,10 +3,6 @@ import pandas as pd
 from winepredictor.data_utils import extract_features_and_target
 
 
-"""Tests for extract_features_and_targets."""
-"""to run: python -m pytest tests/test_data_utils.py"""
-
-
 def test_extract_features_and_target_returns_tuple(sample_wine_data):
     """
     Test that extract_features_and_target returns a tuple of length 2.

@@ -16,9 +16,6 @@ def synthetic_regression_data():
     return X, y
 
 
-
-    """Tests for run_knn_grid_search."""
-
 def test_returns_dict_with_expected_keys(synthetic_regression_data):
     """
     Test that run_knn_grid_search returns a dictionary containing exactly

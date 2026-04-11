@@ -18,7 +18,6 @@ def numeric_df():
         }
     )
 
-"""tests for plot_correlation_heatmap"""
 
 def test_output_file_is_created_path(numeric_df, tmp_path):
     """
